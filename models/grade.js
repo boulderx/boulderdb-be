@@ -10,6 +10,8 @@ const gradeSchema = new Schema({
         type: String,
         required: true
     }
+}, {
+    timestamps: true
 })
 
 module.exports = mongoose.model('Grade', gradeSchema);

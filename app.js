@@ -6,6 +6,8 @@ require('dotenv').config();
 const app = express();
 
 const authRoutes = require('./routes/auth');
+const gradeRoutes = require('./routes/grade');
+const firstClimberRoutes = require('./routes/firstClimber');
 
 app.use(bodyParser.json());
 
@@ -17,6 +19,8 @@ app.use((req, res, next) => {
 })
 
 app.use('/auth', authRoutes);
+app.use('', gradeRoutes);
+app.use('', firstClimberRoutes);
 
 app.use((error, req, res, next) => {
     console.log(error);
