@@ -22,12 +22,23 @@ router.put('/signup', [
     body('password')
         .trim()
         .isLength({min: 5}),
-    body('name')
+    body('confirmPassword')
         .trim()
-        .not()
-        .isEmpty()
+        .custom((value, {req}) => {
+            if(value !== req.body.password){
+                throw new Error('Passwords do not match')
+            }
+            return true;
+        })
 ], authController.signup);
 
-router.post('/login', authController.login);
+router.post('/login', [
+    body('email')
+        .not()
+        .isEmpty(),
+    body('password')
+        .not()
+        .isEmpty()
+], authController.login);
 
 module.exports = router;
