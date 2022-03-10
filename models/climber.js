@@ -2,21 +2,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const mediaSchema = new Schema({
+    sequence: {
+        type: Number,
+        required: true,
+    },
     type: {
         type: String,
         enum : ['facebook', 'instagram', 'twitter', 'vimeo', 'youtube'],
         required: true,
     },
-    accountName: {
+    name: {
         type: String,
     },
     link: {
         type: String,
-        required: true
     }
 });
 
-const firstClimberSchema = new Schema({
+const climberSchema = new Schema({
     firstName: {
         type: String,
         required: true
@@ -32,4 +35,4 @@ const firstClimberSchema = new Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('FirstClimber', firstClimberSchema);
+module.exports = mongoose.model('Climber', climberSchema);

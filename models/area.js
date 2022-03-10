@@ -6,10 +6,10 @@ const areaSchema = new Schema({
         type: String,
         required: true
     },
-    description: {
+    desc: {
         type: String
     },
-    wayDescription: {
+    wayDesc: {
         type: String
     }
 }, {
