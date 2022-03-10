@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const gradeSchema = new Schema({
-    vGrade: {
+    fbGrade: {
         type: String,
         required: true
     },
-    fbGrade: {
+    vGrade: {
         type: String,
         required: true
     }

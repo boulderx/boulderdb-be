@@ -1,9 +1,9 @@
 const { validationResult } = require('express-validator')
 require('dotenv').config();
 
-const Grade = require('../models/grade');
+const Area = require('../models/area');
 
-exports.createGrade = async (req, res, next) => {
+exports.createArea = async (req, res, next) => {
     const errors = validationResult(req);
     try {
         if(!errors.isEmpty()) {
@@ -11,16 +11,18 @@ exports.createGrade = async (req, res, next) => {
             error.statusCode = 422;
             throw error;
         }
-        const vGrade = req.body.vGrade;
-        const fbGrade = req.body.fbGrade;
-        const grade = new Grade({
-            vGrade: vGrade,
-            fbGrade: fbGrade,
+        const name = req.body.name;
+        const desc = req.body.desc;
+        const wayDesc = req.body.wayDesc;
+        const area = new Area({
+            name: name,
+            desc: desc,
+            wayDesc: wayDesc
         })
-        await grade.save()
+        await area.save()
         res.status(201).json({
-            message: 'Grade created successfully',
-            grade: grade
+            message: 'Area created successfully',
+            grade: area
         })
     } catch(err) {
         if(!err.statusCode ) {
@@ -30,12 +32,12 @@ exports.createGrade = async (req, res, next) => {
     }
 }
 
-exports.getGrades = async (req, res, next) => {
+exports.getAreas = async (req, res, next) => {
     try {
-        const grades = await Grade.find();
+        const areas = await Area.find();
         res.status(200).json({
             message: 'Fetched grades successfully',
-            grades: grades,
+            areas: areas,
         })
     } catch(err) {
         if(!err.statusCode ) {
@@ -45,18 +47,18 @@ exports.getGrades = async (req, res, next) => {
     }
 }
 
-exports.getGrade = async (req, res, next) => {
-    const gradeId = req.params.gradeId;
+exports.getArea = async (req, res, next) => {
+    const areaId = req.params.areaId;
     try {
-        const grade = await Grade.findById(gradeId);
-        if(!grade) {
-            const error = new Error('Count not find grade');
+        const area = await Area.findById(areaId);
+        if(!area) {
+            const error = new Error('Count not find area');
             error.statusCode = 404;
             throw error;
         }
         res.status(200).json({
-            message: 'Grade fetched.',
-            grade: grade
+            message: 'Area fetched.',
+            area: area
         })
     } catch(err){
         if(!err.statusCode ) {
@@ -66,29 +68,31 @@ exports.getGrade = async (req, res, next) => {
     }
 }
 
-exports.updateGrade = async (req, res, next) => {
-    const gradeId = req.params.gradeId;
+exports.updateArea = async (req, res, next) => {
+    const areaId = req.params.areaId;
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         const error = new Error('Validation failed, entered data is incorrect');
         error.statusCode = 422;
         throw error;
     }
-    const vGrade = req.body.vGrade;
-    const fbGrade = req.body.fbGrade;
+    const name = req.body.name;
+    const desc = req.body.desc;
+    const wayDesc = req.body.wayDesc;
     try {
-        const grade = await Grade.findById(gradeId);
-        if(!grade) {
-            const error = new Error('Count not find grade');
+        const area = await Area.findById(areaId);
+        if(!area) {
+            const error = new Error('Count not find area');
             error.statusCode = 404;
             throw error;
         }
-        grade.vGrade = vGrade;
-        grade.fbGrade = fbGrade;
-        const result = await grade.save();
+        area.name = name;
+        area.desc = desc;
+        area.wayDesc = wayDesc;
+        const result = await area.save();
         res.status(200).json({
-            message: 'Grade updated!',
-            grade: result
+            message: 'Area updated!',
+            area: result
         })
     } catch(err){
         if(!err.statusCode ) {
@@ -98,12 +102,12 @@ exports.updateGrade = async (req, res, next) => {
     }
 }
 
-exports.deleteGrade = async (req, res, next) => {
-    const gradeId = req.params.gradeId;
+exports.deleteArea = async (req, res, next) => {
+    const areaId = req.params.areaId;
     try {
-        const result = await Grade.findByIdAndRemove(gradeId);
+        const result = await Area.findByIdAndRemove(areaId);
         res.status(200).json({
-            message: 'Deleted grade.'
+            message: 'Deleted area.'
         })
     } catch (err) {
         if(!err.statusCode ) {

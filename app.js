@@ -7,7 +7,8 @@ const app = express();
 
 const authRoutes = require('./routes/auth');
 const gradeRoutes = require('./routes/grade');
-const firstClimberRoutes = require('./routes/firstClimber');
+const climberRoutes = require('./routes/climber');
+const areaRoutes = require('./routes/area');
 
 app.use(bodyParser.json());
 
@@ -20,7 +21,8 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRoutes);
 app.use('', gradeRoutes);
-app.use('', firstClimberRoutes);
+app.use('', climberRoutes);
+app.use('', areaRoutes);
 
 app.use((error, req, res, next) => {
     const status = error.statusCode || 500;

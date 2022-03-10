@@ -20,15 +20,6 @@ router.get('/grades', isAuth, gradeController.getGrades);
 
 router.get('/grade/:gradeId', isAuth, gradeController.getGrade);
 
-router.put('/grade/:gradeId', [
-    body('fbGrade')
-        .trim()
-        .not()
-        .isEmpty(),
-    body('vGrade')
-        .trim()
-        .not()
-        .isEmpty(),
-], isAuth, gradeController.updateGrade);
+router.put('/grade/:gradeId', isAuth, gradeController.updateGrade);
 
 module.exports = router
