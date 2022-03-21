@@ -6,27 +6,37 @@ const boulderSchema = new Schema({
         type: String,
         required: true
     },
-    description: {
+    desc: {
         type: String
     },
-    wayDescription: {
+    wayDesc: {
         type: String
+    },
+    lat: {
+        type: String
+    },
+    long: {
+        type: String
+    },
+    found: {
+        type: Boolean
+    },
+    firstAscentDate: {
+        type: Date
     },
     firstClimber: {
         type: Schema.Types.ObjectId,
-        ref: 'FirstClimber',
-        required: true
+        ref: 'Climber'
     },
     grade: {
         type: Schema.Types.ObjectId,
-        ref: 'Grade',
-        required: true
+        ref: 'Grade'
     },
     area: {
         type: Schema.Types.ObjectId,
-        ref: 'Area',
-        required: true
-    }
+        ref: 'Area'
+    },
+    imageUrls: [String]
 }, {
     timestamps: true
 });
