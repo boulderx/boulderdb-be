@@ -12,10 +12,18 @@ const gradeRoutes = require('./routes/grade');
 const climberRoutes = require('./routes/climber');
 const areaRoutes = require('./routes/area');
 const boulderRoutes = require('./routes/boulder');
+const videoRoutes = require('./routes/video');
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'images');
+        if (
+            file.mimetype === 'image/png' ||
+            file.mimetype === 'image/jpg' ||
+            file.mimetype === 'image/jpeg'
+        ) {
+            cb(null, 'videos')
+        }
+        cb(null, 'videos');
     },
     filename: (req, file, cb) => {
         cb(null, new Date().toISOString() + '-' + file.originalname)
@@ -26,7 +34,9 @@ const fileFilter = (req, file, cb) => {
     if (
         file.mimetype === 'image/png' ||
         file.mimetype === 'image/jpg' ||
-        file.mimetype === 'image/jpeg'
+        file.mimetype === 'image/jpeg' ||
+        file.mimetype === 'video/x-msvideo' ||
+        file.mimetype === 'video/mpeg'
     ) {
         cb(null, true);
     } else {
@@ -40,6 +50,7 @@ app.use(multer({
     fileFilter: fileFilter
 }).single('image'));
 app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/videos', express.static(path.join(__dirname, 'videos')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -53,6 +64,7 @@ app.use('', gradeRoutes);
 app.use('', climberRoutes);
 app.use('', areaRoutes);
 app.use('', boulderRoutes);
+app.use('', videoRoutes);
 
 app.use((error, req, res, next) => {
     const status = error.statusCode || 500;
