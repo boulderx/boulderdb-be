@@ -8,6 +8,8 @@ router.get('/videoList', isAuth, videoController.getVideos);
 
 router.get('/video/:videoId', isAuth, videoController.getVideo);
 
+router.put('/video/:videoId', isAuth, videoController.updateVideo);
+
 router.post('/videoUpload', isAuth, videoController.addVideo);
 
 module.exports = router
