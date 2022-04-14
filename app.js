@@ -13,6 +13,7 @@ const climberRoutes = require('./routes/climber');
 const areaRoutes = require('./routes/area');
 const boulderRoutes = require('./routes/boulder');
 const videoRoutes = require('./routes/video');
+const sourceRoutes = require('./routes/source');
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -65,6 +66,7 @@ app.use('', climberRoutes);
 app.use('', areaRoutes);
 app.use('', boulderRoutes);
 app.use('', videoRoutes);
+app.use('', sourceRoutes);
 
 app.use((error, req, res, next) => {
     const status = error.statusCode || 500;

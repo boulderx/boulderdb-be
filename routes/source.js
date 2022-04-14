@@ -2,24 +2,31 @@ const express = require('express');
 const { body } = require('express-validator');
 
 const router = express.Router();
-const gradeController = require('../controllers/grade');
+const sourceController = require('../controllers/source');
 const isAuth = require('../middleware/isAuth');
 
-router.post('/grade', isAuth, [
-    body('fbGrade')
+router.post('/source', isAuth, [
+    body('name')
         .trim()
         .not()
         .isEmpty(),
-    body('vGrade')
-        .trim()
+    body('lastCheckedDate')
         .not()
-        .isEmpty(),
-], gradeController.createGrade);
+        .isEmpty()
+], sourceController.createSource);
 
-router.get('/grades', isAuth, gradeController.getGrades);
+router.get('/sources', isAuth, sourceController.getSources);
 
-router.get('/grade/:gradeId', isAuth, gradeController.getGrade);
+router.get('/source/:sourceId', isAuth, sourceController.getSource);
 
-router.put('/grade/:gradeId', isAuth, gradeController.updateGrade);
+router.put('/source/:sourceId', isAuth, [
+    body('name')
+    .trim()
+    .not()
+    .isEmpty(),
+    body('lastCheckedDate')
+        .not()
+        .isEmpty()
+], sourceController.updateSource);
 
 module.exports = router
