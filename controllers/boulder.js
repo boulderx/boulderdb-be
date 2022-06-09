@@ -1,4 +1,4 @@
-const { validationResult } = require('express-validator')
+const { validationResult } = require('express-validator');
 require('dotenv').config();
 
 const Boulder = require('../models/boulder');
